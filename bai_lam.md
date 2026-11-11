@@ -90,7 +90,17 @@ logs\studio.log:11:2026-08-28 08:34:07 POST /api/thanh-toan status=500
 ### Lệnh chạy (Windows: nếu dùng Phụ lục 2 thì ghi cả 2 lệnh)
 
 ```shell
-# Ghi lệnh vào đây (xoá dòng này)
+@`
+# Script: tong_hop.ps1
+# Tac gia: thi_thanh_dat
+# Ngay tao: 11-11-2026
+Write-Host "Dang tao bao cao..."
+"=== BAO CAO SU CO WEBSITE ===" > .\logs\tong_hop.txt
+Get-content .\logs\studio.log | Select-string "status=404" >> .\logs\tong_hop.txt
+Get-content .\logs\studio.log | select-string "st=500" >> Measure-Object >> .\logs\tong_hop.txt
+Write-Host "Hoan Thanh!"
+`@
+
 
 ```
 
@@ -123,14 +133,26 @@ logs\studio.log:11:2026-08-28 08:34:07 POST /api/thanh-toan status=500
 ### Báo cáo lỗi gửi trưởng nhóm
 
 - **Context:** 
-- **Expected:** 
-- **Actual:** 
-- **Log:** 
+- Hệ điều hành: Windows 11 64-bit, sử dụng Git Bash (phiên bản 2.44.0).
+- Thao tác thực hiện: Chạy lệnh `git pull origin main` tại thư mục dự án trước khi đẩy (push) bài tập lên GitHub.
 
+
+- **Expected:** 
+- Git mở và cập nhật được tệp `.git/FETCH_HEAD`, đồng bộ nhánh `main` thành công để cho phép đẩy code mới lên kho lưu trữ.
+- **Actual:** 
+- Lệnh bị dừng ngay lập tức và báo lỗi từ chối quyền mở tệp `.git/FETCH_HEAD`.
+- **Log:** 
+- Log lỗi văn bản:
+  $ git pull origin main
+  error: open(".git/FETCH_HEAD"): Permission denied
+  fatal: Cannot open .git/FETCH_HEAD
+- Các cách em đã thử:
+  (1) Đã đóng toàn bộ cửa sổ VS Code và mở lại Git Bash bằng quyền "Run as Administrator" (như ảnh chụp màn hình em đính kèm bên dưới).
+  (2) Đã kiểm tra phần Properties của thư mục `.git` để bỏ chọn Read-only nhưng tệp FETCH_HEAD vẫn báo khóa quyền truy cập.
 ### Câu tìm kiếm Google
 
 ```text
-(Ghi câu tìm kiếm vào đây – xoá dòng này)
+"Nhập môn Công nghệ Thông tin" filetype:pdf site:ptit.edu.vn -site:123docz.net -site:tailieu.vn
 
 ```
 
